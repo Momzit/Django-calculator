@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+
+  .move {
+  position: relative;
+  top: -274px;
+  left: 810px;
+}
+
+.move2 {
+position: relative;
+top: -290px;
+left: 810px;
+}
+
+</style>
+  <meta charset="UTF-8">
+  <title>Bond Calculator</title>
+</head>
+
+<body>
+
+<h3> Bond Calculator </h3>
+<h5>Enter price in Rands, bond term in years and interest in percentage</h5>
+  <form method=post action="">{% csrf_token %}
+  <table>
+    {% for field in form %}
+      <tr>
+      <td><label for="R">{{ field.name }}</label></td>
+      <td>{{ field }}</td>
+      <!-- <td>{{ field.label }}</td> -->
+      <td></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p style="display: inline;"><input type=submit value=Calculate></form></p>
+ <a href="{% url 'calculator:index' %}" style="display: inline;"><button type="submit" class="btn btn-default btn-sm">Home</button></a>
+
+
+
+<div class="move">
+<h3>Your Results</h3>
+
+  {% if total != None %}
+  <table>
+  	<tr>
+  		<td>Monthly payments (R):</td>
+  		<td> {{ total }} </td>
+  	</tr>
+  	<tr>
+  		<td>Purchase price	(R):</td>
+  		<td> {{ purchase }} </td>
+  	</tr>
+  	<tr>
+  		<td>Deposit price (R)	:</td>
+  		<td> {{ deposit }} </td>
+  	</tr>
+  	<tr>
+  		<td>Bond term (months):</td>
+  		<td> {{ bond }} </td>
+  	</tr>
+  	<tr>
+  		<td>Fixed interest rate (as a decimal):</td>
+  		<td> {{ rate }} </td>
+  	</tr>
+  </table>
+  {% endif %}
+
+  </div>
+
+<div class="move2">
+  	<p>
+  {% if graph != None %}
+  {% load static %}
+  <table>
+<tr><td>  <img src="{% get_static_prefix %}{{ graph }}" width=500></tr></td>
+</table>
+  {% endif %}
+  </p>
+</div>
+</body>

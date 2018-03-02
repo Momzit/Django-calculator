@@ -1,0 +1,16 @@
+{% if Previous_results %}
+<h3>Previously saved results</h3>
+<u>
+	{% for item in Previous_results %}
+	<li>
+		<a href="{% url 'calculator:show' item.pk %}">{{ item.name_to_save }}</a>
+	</li>
+	{% endfor %}
+</u>
+{% else %}
+    <h3>There are no previous entries, make new calculation below.</h3>
+{% endif %}
+<form action="{% url 'calculator:inputform' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-default btn-sm">Make new calculation</button>
+        </form>
