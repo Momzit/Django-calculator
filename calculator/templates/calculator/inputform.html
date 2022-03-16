@@ -22,6 +22,7 @@ left: 810px;
 
 <body>
 
+
 <h3> Bond Calculator </h3>
 <h5>Enter price in Rands, bond term in years and interest in percentage</h5>
   <form method=post action="">{% csrf_token %}
@@ -35,7 +36,7 @@ left: 810px;
     </tr>
     {% endfor %}
   </table>
-  <p style="display: inline;"><input type=submit value=Calculate></form></p>
+  <p style="display: inline;"><input type=submit value=Calculate></p></form>
  <a href="{% url 'calculator:index' %}" style="display: inline;"><button type="submit" class="btn btn-default btn-sm">Home</button></a>
 
 
@@ -75,7 +76,7 @@ left: 810px;
   {% if graph != None %}
   {% load static %}
   <table>
-<tr><td>  <img src="{% get_static_prefix %}{{ graph }}" width=500></tr></td>
+<tr><td>  <img src="{{ graph|safe }}" alt="There supposed to be an image here" width=500></tr></td>
 </table>
   {% endif %}
   </p>

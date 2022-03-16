@@ -7,8 +7,7 @@ import os, time, glob
 def bargraph(purchase, bond, monthly):
 	monthly_payments = monthly
 	i = monthly_payments
-	bond_term = bond
-	N = bond_term*12
+	N = bond*12
 	A = [monthly_payments]
 	for x in np.arange(1,N):
 		monthly_payments += i
@@ -40,3 +39,4 @@ def bargraph(purchase, bond, monthly):
 	return plotfile
 if __name__ == '__main__':
 	print(bargraph(1000, 12, 20))
+
