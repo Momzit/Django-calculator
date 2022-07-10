@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-
-  .move {
-  position: relative;
-  top: -274px;
-  left: 810px;
-}
-
-.move2 {
-position: relative;
-top: -290px;
-left: 810px;
-}
-
-</style>
   <meta charset="UTF-8">
   <title>Bond Calculator</title>
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'calculator/inputform.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;1,300;1,600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-
-
-<h3> Bond Calculator </h3>
-<h5>Enter price in Rands, bond term in years and interest in percentage</h5>
-  <form method=post action="">{% csrf_token %}
-  <table>
-    {% for field in form %}
-      <tr>
-      <td><label for="R">{{ field.name }}</label></td>
-      <td>{{ field }}</td>
-      <!-- <td>{{ field.label }}</td> -->
-      <td></td>
-    </tr>
-    {% endfor %}
-  </table>
-  <p style="display: inline;"><input type=submit value=Calculate></p></form>
- <a href="{% url 'calculator:index' %}" style="display: inline;"><button type="submit" class="btn btn-default btn-sm">Home</button></a>
-
-
-
-<div class="move">
-<h3>Your Results</h3>
-
-  {% if total != None %}
-  <table>
-  	<tr>
-  		<td>Monthly payments (R):</td>
-  		<td> {{ total }} </td>
-  	</tr>
-  	<tr>
-  		<td>Purchase price	(R):</td>
-  		<td> {{ purchase }} </td>
-  	</tr>
-  	<tr>
-  		<td>Deposit price (R)	:</td>
-  		<td> {{ deposit }} </td>
-  	</tr>
-  	<tr>
-  		<td>Bond term (months):</td>
-  		<td> {{ bond }} </td>
-  	</tr>
-  	<tr>
-  		<td>Fixed interest rate (as a decimal):</td>
-  		<td> {{ rate }} </td>
-  	</tr>
-  </table>
-  {% endif %}
-
+  <div class="center-header">
+    <h1><span>Bond Repayment Calculator</span></h1>
   </div>
 
-<div class="move2">
-  	<p>
-  {% if graph != None %}
-  {% load static %}
-  <table>
-<tr><td>  <img src="{{ graph|safe }}" alt="There supposed to be an image here" width=500></tr></td>
-</table>
-  {% endif %}
-  </p>
-</div>
+  <div class="form-container">
+    <div class="headline">
+      <h3 id="headline">Know your total monthly repayment amount on your new property, insert the price of the property you wish to purchase.</h3>
+    </div>
+    
+    <div class="form-section">
+      <div class="form">
+        <form method=post action="">{% csrf_token %}
+          <table>
+            {% for field in form %}
+              <tr>
+                <td><label for="R">{{ field.name }}</label></td>
+              </tr>
+              <tr>
+                <td id="field-section">{{ field }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+          <input class="btn btn-form" type=submit value=Calculate>
+        </form>
+      </div>
+
+      <div class="home-button">
+        <a href="{% url 'calculator:index' %}"><button type="submit" class="btn btn-default btn-sm">Home</button></a>
+      </div>
+    </div>
+
+    <div class="results-container">
+      <div class="results-section">
+        <div class="monthly-payment">
+          <p>Your monthly repayments (ZAR)</p>
+          <p id="result-spot"> {{ total }}</p>
+        </div>
+
+        <div class="inputs">
+          <div class="input-section">
+            <p>Purchase price (ZAR)</p>
+            <p id="result-spot">{{ purchase }}</p>
+          </div>
+          <div class="input-section">
+            <p>Deposit price (ZAR)</p>
+            <p id="result-spot">{{ deposit }} </p>
+          </div>
+          <div class="input-section">
+            <p>Bond term (years)</p>
+            <p id="result-spot">{{ bond }}</p>
+          </div>
+          <div class="input-section">
+            <p>Fixed interest rate (%)</p>
+            <p id="result-spot">{{ rate }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="graph-section">
+        <div class="graph-title">
+          <p>Summery of monthly repayments</p>
+          <div/>
+        </div>
+        <img src="{% static 'PieChart.png' %}" alt="Summery" height=300 width="150">
+      </div>
+    </div>
+  </div>
+
 </body>

@@ -1,24 +1,36 @@
-<table>
-  <h3>Inputs from {{ object.name_to_save }} </h3>
-  
-    <tr>
-        <td>Purchase price  (R):</td>
-        <td>
-        {{ object.purchase_price }}
-    </td> </tr>
-     <tr>
-     <td>Deposit price (R)   :</td>
-        <td>
-        {{ object.deposit_paid }}
-    </td> </tr>
-     <tr>
-        <td>Bond term (years):</td>
-      <td>
-        {{ object.bond_term }}
-    </td> </tr>
-     <tr>
-     <td>Fixed interest rate (%):</td>
-        <td>
-        {{ object.fixed_interest_rate }}
-    </td> </tr>
-</table>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'calculator/results.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;1,300;1,600&display=swap" rel="stylesheet">
+
+<div class="center-header">
+  <h1><span>Bond Repayment Calculator</span></h1>
+</div>
+
+<div class="container">
+    <div class="header">
+      <h3>Results saved from file: {{ object.name_to_save }} </h3>
+    </div>
+
+    <div class="results">
+      <div class="summery">
+        <p>Purchase price  (R): {{ object.purchase_price }}</p>
+        <p>Deposit price (R): {{ object.deposit_paid }}</p>
+        <p>Bond term (years): {{ object.bond_term }}</p>
+        <p>Fixed interest rate (%): {{ object.fixed_interest_rate }}</p>
+      </div>
+      <div class="chart">
+        <div class="donut">
+          <div class="hole">
+            <p>Monthly repayments</p>
+            <p> {{ object.total }} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-button">
+      <a href="{% url 'calculator:index' %}"><button type="submit" class="btn btn-default btn-sm">Home</button></a>
+    </div>
+</div>
